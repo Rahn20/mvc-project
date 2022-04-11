@@ -1,0 +1,82 @@
+version: 2
+
+
+jobs:
+    build:
+        docker:
+            # specify the version you desire here
+            #- image: cimg/php:8.0.2-browsers
+            - image: circleci/php:8.0.11-node-browsers
+              environment: 
+                DB_CONNECTION: mysql
+                DB_HOST: 127.0.0.1
+                DB_PORT: 3306
+                DB_DATABASE: test
+                DB_USERNAME: root
+                DB_PASSWORD: $ROOT_PASSWORD
+
+            #- image: circleci/php:8.0.2-node-browsers
+            # Specify service dependencies here if necessary
+            # CircleCI maintains a library of pre-built images
+            # documented at https://circleci.com/docs/2.0/circleci-images/
+            # - image: circleci/mysql:8.0
+
+            - image: cimg/mysql:8.0
+              environment:
+                MYSQL_DATABASE: test
+                MYSQL_ROOT_PASSWORD: $ROOT_PASSWORD
+
+        working_directory: ~/repo
+
+        steps:
+            - checkout
+
+            - run:
+                name: Install MySQL driver
+                command: |
+                    sudo apt-get update
+                    sudo docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd
+                    sudo docker-php-ext-install zip bcmath pdo_mysql
+            #       sudo apt-get install mysql-client
+
+            - run:
+                name: "Prepare Environment"
+                command: |
+                    sudo docker-php-ext-install zip
+                    sudo docker-php-ext-install pdo_mysql
+
+            - run:
+                name: "Create Environment file"
+                command: |
+                    mv .env.circleci .env
+
+
+            # Download and cache dependencies
+            - restore_cache:
+                keys:
+                    - v1-dependencies-{{ checksum "composer.json" }}
+                    - v1-dependencies-
+
+
+            - run:
+                name: "Install Dependencies"
+                command: make install
+
+
+            - save_cache:
+                key: v1-dependencies-{{ checksum "composer.json" }}
+                paths:
+                    - ./vendor
+
+
+            - run:
+                name: "Generate App key"
+                command: php artisan key:generate
+
+            - run:
+                name: "Run migration"
+                command: php artisan migrate
+
+            - run:
+                name: "Run Tests"
+                command: make test

@@ -1,0 +1,238 @@
+/* main */
+body {
+    width: 70%;
+    margin: 0.5em auto;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    padding: 0 0.6em 0 0.6em;
+}
+
+main {
+    min-height: 23em;
+}
+
+/* nav */
+nav {
+    border-bottom: 1px ridge #04AA6D;
+}
+
+nav li {
+    display: inline-block;
+    padding: 0.5em;
+}
+
+nav li a {
+    text-decoration: none;
+    color: #1a1a1a;
+}
+
+nav a:hover {
+    text-decoration: underline;
+    color: #0000ff;
+}
+
+.active {
+    background-color: #06e090;
+}
+
+/* footer */
+footer {
+    border-top: 1px solid #ccc;
+    text-align: center;
+}
+
+
+@media only screen and (max-width: 700px) {
+    body {
+        width: auto;
+        padding: 0 0 0 0.6em;
+    }
+
+    main {
+        min-height: auto;
+    }
+}
+
+
+/* home-page */
+#index-page li {
+    margin: 0.6em;
+    color: #04AA6D;
+}
+
+#index-page a {
+    color: #1a1a1a;
+}
+
+#index-page a:hover {
+    text-decoration: none;
+    border-bottom: 1px solid #04AA6D;
+}
+
+/* game and yatzy */
+.dice-utf8 .dice-1::after {
+    content: "\2680";
+}
+
+.dice-utf8 .dice-2::after {
+    content: "\2681";
+}
+
+.dice-utf8 .dice-3::after {
+    content: "\2682";
+}
+
+.dice-utf8 .dice-4::after {
+    content: "\2683";
+}
+
+.dice-utf8 .dice-5::after {
+    content: "\2684";
+}
+
+.dice-utf8 .dice-6::after {
+    content: "\2685";
+}
+
+.dice-utf8 {
+    font-size: 52px;
+}
+
+
+/* game 21 styles */
+.game select {
+    padding: 0.5em;
+}
+
+.game p input {
+    padding: 1em;
+    border-color: #04AA6D;
+    cursor: pointer;
+}
+
+
+
+/* yatzy-page styles */
+.yatzy .throw_button {
+    padding: 2em;
+    border-color: #04AA6D;
+    cursor: pointer;
+    margin-left: 40%;
+}
+
+.yatzy {
+    overflow: auto;
+    margin: 12em 0 7em 0;
+    width: 450px;
+    height: 450px;
+}
+
+.destroy a {
+    font-weight: bold;
+    color: #0000ff;
+}
+
+.yatzy-keep-dice {
+    border-top: 2px solid #ccc;
+}
+
+.yatzy-dice a {
+    text-decoration: none;
+    padding: 3px;
+}
+
+.yatzy-dice {
+    margin-left: 70px;
+}
+
+
+.yatzy_protocol {
+    float: left;
+}
+
+
+@media only screen and (max-width: 977px) {
+    .yatzy {
+        overflow: none;
+        width: none;
+        height: none;
+    }
+}
+
+
+/* yatzy protocol table*/
+#yatzy_protocol {
+    border-collapse: collapse;
+    width: 220px;
+}
+
+#yatzy_protocol th {
+    padding: 12px 0 12px 0;
+    text-align: left;
+    background-color: #04AA6D;
+    color: white;
+}
+
+.yatzy_save {
+    text-align: center;
+}
+
+.yatzy_save_link {
+    text-align: center;
+}
+
+.yatzy_save_link a {
+    color: red;
+    text-decoration: none;
+    text-align: center;
+}
+
+#yatzy_protocol td, #yatzy_protocol th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+@media only screen and (max-width: 700px) {
+    #yatzy_protocol {
+        border-collapse: collapse;
+        width: auto;
+    }
+}
+
+
+/* highscore-page */
+.highscore-table {
+    border-collapse: collapse;
+    width: 400px;
+}
+
+.highscore {
+    margin-top: 50px;
+}
+
+.highscore-table th {
+    padding: 12px 0 12px 0;
+    text-align: left;
+    background-color: #04AA6D;
+    color: white;
+}
+
+.highscore-table td, .highscore-table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+
+.highscore-table a {
+    border: 1px solid #000;
+    background-color: rgb(195, 20, 20);
+    color: #fff;
+    padding: 5px;
+    margin-left: 15px;
+    text-decoration: none;
+}
+
+.highscore-table a:hover {
+    border: 1px solid #ccc;
+    background-color: rgb(231, 10, 10);
+}

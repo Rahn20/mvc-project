@@ -1,0 +1,136 @@
+.histogram {
+    height: 23em;
+}
+
+#q-graph {
+    display: block;
+    position: relative;
+    width: 600px;
+    height: 300px;
+    margin: 7em 1em 0 0;
+    padding: 0;
+    background: transparent;
+    font-size: 11px;
+}
+
+#q-graph caption {
+    caption-side: top;
+    width: 600px;
+    top: -40px;
+    position: relative;
+    font-weight: bold;
+    font-size: large;
+}
+
+#q-graph tr, #q-graph th, #q-graph td {
+    position: absolute;
+    bottom: 0;
+    width: 50px;
+    z-index: 2;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+/* yatzy histogram*/
+#q-graph .qtr th {
+    width: 65px;
+    margin-left: 1.5em;
+}
+/*---------------------------*/
+
+#q-graph td {
+    transition: all .3s ease;
+}
+
+
+#q-graph thead tr {
+    left: 100%;
+    top: 50%;
+    bottom: auto;
+    margin: -2em 0 0 2em;
+}
+
+#q-graph thead th {
+    width: 5em;
+    height: auto;
+    padding: 0.5em 1em;
+}
+
+#q-graph thead th.computer {
+    top: 0;
+    left: 0;
+    line-height: 2;
+}
+
+#q-graph thead th.player {
+    top: 2.75em;
+    line-height: 2;
+    left: 0;
+}
+
+#q-graph tbody tr {
+    height: 296px;
+    padding-top: 2px;
+    border-right: 1px dotted #C4C4C4;
+    color: #AAA;
+}
+
+#q-graph #q1 {left: 30px;}
+#q-graph #q2 {left: 100px;}
+#q-graph #q3 {left: 180px;}
+#q-graph #q4 {left: 260px;}
+#q-graph #q5 {left: 340px;}
+#q-graph #q6 {left: 420px;}
+#q-graph #q7 {left: 500px;}
+
+#q-graph tbody th {
+    bottom: -3em;
+    vertical-align: top;
+    font-weight: normal;
+    color: #333;
+}
+
+#q-graph .bar {
+    width: 22px;
+    border: 1px solid;
+    border-bottom: none;
+    color: #000;
+}
+
+#q-graph .computer {
+    background-color: #39cccc;
+    border-color: transparent;
+}
+
+#q-graph .player {
+    left: 23.5px;
+    background-color: #7fdbff;
+    border-color: transparent;
+}
+
+
+#ticks {
+    position: relative;
+    top: -300px;
+    left: 2px;
+    width: 596px;
+    height: 300px;
+    z-index: 1;
+    margin-bottom: -300px;
+    font-size: 10px;
+    font-family: "fira-sans-2", Verdana, sans-serif;
+}
+
+#ticks .tick {
+    position: relative;
+    border-bottom: 1px dotted #C4C4C4;
+    width: 600px;
+}
+
+#ticks .tick p {
+    position: absolute;
+    left: -1em;
+    top: -0.8em;
+    margin: 0 0 0 0.5em;
+}

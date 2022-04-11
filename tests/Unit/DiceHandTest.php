@@ -3,7 +3,6 @@
 namespace Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
-
 use App\Models\DiceHand;
 
 class DiceHandTest extends TestCase

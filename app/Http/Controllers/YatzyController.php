@@ -119,7 +119,7 @@ class YatzyController extends Controller
         $this->session->put('yatzy.part2_9', $yatzy);
     }
 
-    
+
     public function destroyYatzy(Request $request)
     {
         $request->session()->forget('yatzy');

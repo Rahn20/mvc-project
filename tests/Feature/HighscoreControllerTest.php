@@ -5,14 +5,11 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-use function PHPUnit\Framework\assertEquals;
-
-//Controller
 use App\Http\Controllers\HighscoreController;
-
-//Models
 use App\Models\Highscore;
 use App\Models\YatzyHighscore;
+
+use function PHPUnit\Framework\assertEquals;
 
 class HighscoreControllerTest extends TestCase
 {
@@ -20,7 +17,7 @@ class HighscoreControllerTest extends TestCase
      * Create fake Highscore data to test, adds data to the database
      * @return void
      */
-    protected function createData() 
+    protected function createData()
     {
         $insertTestData = Highscore::create([
             'winner' => 'Dator',
@@ -40,7 +37,7 @@ class HighscoreControllerTest extends TestCase
      * Create fake Yatzy Highscore data to test, adds data to the database
      * @return void
      */
-    protected function createYatzyData() 
+    protected function createYatzyData()
     {
         $insertTestData = YatzyHighscore::create([
             'score' => 300
@@ -127,5 +124,4 @@ class HighscoreControllerTest extends TestCase
         $countGamesAfter = count($getScoresAfter);
         assertEquals($countGamesAfter, $countGamesBefore - 1);
     }
-
 }

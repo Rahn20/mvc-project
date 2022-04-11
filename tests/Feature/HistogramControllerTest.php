@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-
 //Models
 use App\Models\Highscore;
 use App\Models\YatzyHighscore;
@@ -16,7 +15,7 @@ class HistogramControllerTest extends TestCase
      * Create fake Highscore data to test, adds data to the database
      * @return void
      */
-    protected function createData() 
+    protected function createData()
     {
         $insertTestData = Highscore::create([
             'winner' => 'Dator',
@@ -35,7 +34,7 @@ class HistogramControllerTest extends TestCase
      * Create fake yatzy Highscore data to test, adds data to the database
      * @return void
      */
-    protected function createYatzyData() 
+    protected function createYatzyData()
     {
         $insertTestData = YatzyHighscore::create([
             'score' => 50

@@ -113,7 +113,6 @@ class YatzyProtocolControllerTest extends TestCase
             'yatzy.saveDice' => [4, 4, 10, 20, 30, 5], // 73
             'yatzy.saveDicePart2' => [10, 12, 15, 15, 20, 28, 15, 50], //165 points
             'yatzy.sum' => 73,
-            
         ])->get('/yatzy/save_part_2/9/50'); // + 50 points = 215 points
 
         $response->assertStatus(302)

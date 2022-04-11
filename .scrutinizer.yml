@@ -17,6 +17,9 @@ build:
                 php:
                     version: 8.1
 
+                variables:
+                    DB_DATABASE: 'scrutinizer'
+
         analysis:
             tests:
                 override:

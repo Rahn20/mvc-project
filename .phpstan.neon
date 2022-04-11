@@ -1,8 +1,10 @@
+
 parameters:
     level: 5
     paths:
-        - config
-        - src
-        #- test
+        - tests
     bootstrapFiles:
         - .phpstan.constants.php
+
+    ignoreErrors:
+        - '#Call to an undefined static method [a-zA-Z0-9\\_]+::create\(\)#'

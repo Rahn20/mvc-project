@@ -94,7 +94,7 @@ class GameController extends Controller
         $this->session->forget('play.graphic');
         $roll = [];
 
-        while ($computer < 21 || $computer < 19) {
+        while ($computer < 21) {
             $dice = new Dice();
             $dice->roll();
             $lastRoll = $dice->getLastRoll();
@@ -102,6 +102,10 @@ class GameController extends Controller
             array_push($roll, $lastRoll);
             $computer = $this->session->get('play.computer') + $lastRoll;
             $this->session->put('play.computer', $computer);
+
+            if ($computer == 20) {
+                break;
+            }
         }
 
         $graphic = new GraphicalDice();
@@ -117,16 +121,10 @@ class GameController extends Controller
 
     private function pushToSessions(int $computer, int $player)
     {
-        if ($computer == 21) {
+        if ($player == $computer) {
             $this->session->put('play.result', "Dator vinner");
             $this->insertNewScore('Dator', $computer);
-        } elseif ($player < $computer && $computer < 21) {
-            $this->session->put('play.result', "Dator vinner");
-            $this->insertNewScore('Dator', $computer);
-        } elseif ($player > $computer && $player < 21) {
-            $this->session->put('play.result', "Du vinner");
-            $this->insertNewScore('Spelare', $player);
-        } elseif ($player == $computer) {
+        } elseif ($player < $computer && $computer <= 21) {
             $this->session->put('play.result', "Dator vinner");
             $this->insertNewScore('Dator', $computer);
         } elseif ($computer > 21) {

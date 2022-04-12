@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\DiceHand;
+use App\Models\Yatzy;
 
 /**
  * A YatzyController, yatzy-page
@@ -71,33 +71,25 @@ class YatzyController extends Controller
         $this->session->put('yatzy.number', $number);
 
         $values = $this->session->get('yatzy.values');
-        $keepDice = $this->session->get('yatzy.keepDice');
+        $keepDice = $this->session->get('yatzy.keepDice') ?? [];
 
         if ($values == null) {
-            $diceHand = new DiceHand(5);
+            $yatzy = new Yatzy(5);
         } else {
-            $diceHand = new DiceHand(count($values));
+            $yatzy = new Yatzy(count($values));
         }
 
         // add values to session
-        $diceHand->rollDices();
-        $values = $diceHand->getValues();
+        $yatzy->roll();
+        $values = $yatzy->diceHandValues();
         $this->session->put('yatzy.values', $values);
 
-        // get the sum of the values
-        $diceHand->addYatzyValues($values);
-        $allValues = $diceHand->getYatzyValues();
+        // add yatzy- and keep dice values to get the sum of the same values
+        $yatzy->addYatzyValues(array_merge($values, $keepDice));
+        $yatzyResult = $yatzy->getYatzyValues();
+        $this->session->put('yatzy.sumValues', $yatzyResult);
 
-        if ($keepDice) {
-            $diceHand->addYatzyValues($keepDice);
-            $newValues = $diceHand->getYatzyValues();
-            $this->session->put('yatzy.sumValues', $newValues);
-        } else {
-            $keepDice = [];
-            $this->session->put('yatzy.sumValues', $allValues);
-        }
-
-        $this->addToSession($diceHand, $values, $keepDice);
+        $this->addToSession($yatzy, $values, $keepDice);
     }
 
 

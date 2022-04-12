@@ -15,13 +15,10 @@ clean:
 	rm -rf build .phpunit.result.cache
 
 clean-all: clean
-	rm -rf vendor composer.lock
+	rm -rf vendor composer.lock .bin
 
 clean-cache:
 	rm -rf cache/*/*
-
-#clean-all:
-#	rm -rf .bin build vendor
 
 install: install-php-tools
 	composer install

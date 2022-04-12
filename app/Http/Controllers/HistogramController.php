@@ -17,7 +17,7 @@ class HistogramController extends Controller
 
     /**
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function index()
     {

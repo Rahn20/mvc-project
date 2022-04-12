@@ -6,8 +6,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-//use App\Http\Controllers\YatzyController;
-
 class YatzyControllerTest extends TestCase
 {
     /**
@@ -50,5 +48,51 @@ class YatzyControllerTest extends TestCase
             ->assertRedirect('yatzy')
             ->assertSessionHas('yatzy.keepDice', [15])
             ->assertSessionHas('yatzy.values', [4]);
+    }
+
+    /**
+     * Test yatzy page, test play yatzy (5 yatzy values default)
+     *
+     * @return void
+     */
+    public function testPlayYatzyPart1()
+    {
+        $response = $this->post('/yatzy');
+
+        $response->assertStatus(302)
+                ->assertRedirect('/yatzy');
+    }
+
+    /**
+     * Test yatzy page, test play yatzy with 4 dice values
+     *
+     * @return void
+     */
+    public function testPlayYatzyPart2()
+    {
+        $response = $this->withSession([
+            'yatzy.values' => [4, 6, 5, 3]
+        ])->post('/yatzy');
+
+        $response->assertStatus(302)
+                ->assertRedirect('/yatzy');
+    }
+
+    /**
+     * Test yatzy page, test play yatzy with 4 dice values + 1 keep value
+     *
+     * @return void
+     */
+    public function testKeepDice()
+    {
+        $response = $this->withSession([
+            'yatzy.values' => [4, 6, 5, 3],
+            'yatzy.number' => 2,
+            'yatzy.keepDice' => [6],
+        ])->post('/yatzy');
+
+        $response->assertStatus(302)
+                ->assertRedirect('/yatzy')
+                ->assertSessionHas('yatzy.sumValues');
     }
 }

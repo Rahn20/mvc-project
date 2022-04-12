@@ -2,36 +2,43 @@ imports:
     - php
 
 filter:
-    excluded_paths: [vendor/*, test/*]
+    excluded_paths: [vendor/*, tests/*, database/*]
 
 
 build:
-    nodes:
-        my-node:
-            services:
-                # For available tags, see https://hub.docker.com/_/mysql/
-                mysql: 8.0
+    environment:
+        php: 8.0.2
+        mysql: 5.7
 
-        my-tests:
-            environment:
-                php:
-                    version: 8.1
+        variables:
+            APP_KEY: 'base64:p1Fjahal5lpQe8O+/EV9fMyYPbbVj/I5PI7tG33VOZ0='
+            APP_ENV: 'testing'
+            APP_URL: 'http://laravel.dev'
+            DB_HOST: '127.0.0.1'
+            DB_DATABASE: 'scrutinizer'
+            DB_USERNAME: 'root'
+            DB_PASSWORD: ''
 
-                variables:
-                    DB_DATABASE: 'scrutinizer'
+    cache:
+        directories:
+            - vendor/
+            - ~/.composer/cache/
 
-        analysis:
-            tests:
-                override:
-                    - php-scrutinizer-run
+    dependencies:
+        before:
+            - mysql -uroot -e 'CREATE DATABASE scrutinizer'
 
-        tests-and-coverage:
-            tests:
-                before:
-                    - mysql -uroot -e 'CREATE DATABASE scrutinizer'
-                override:
-                    -
-                        command: "make phpunit"
-                        coverage:
-                            file: "build/coverage.clover"
-                            format: "php-clover"
+    tests:
+        before:
+            - mv .env.testing .env
+            - php-scrutinizer-run
+            - php artisan config:cache
+            - php artisan key:generate
+        
+        override:
+            -
+                command: "make phpunit"
+                coverage:
+                    file: "build/coverage.clover"
+                    format: "php-clover"
+

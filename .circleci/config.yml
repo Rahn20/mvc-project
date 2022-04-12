@@ -71,7 +71,9 @@ jobs:
 
             - run:
                 name: "Generate App key"
-                command: php artisan key:generate
+                command: |
+                    php artisan config:cache
+                    php artisan key:generate
 
             - run:
                 name: "Run migration"

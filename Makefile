@@ -87,8 +87,7 @@ phpstan: prepare
 	- [ ! -f .phpstan.neon ] || $(PHPSTAN) analyse -c .phpstan.neon | tee build/phpstan
 
 phpunit: prepare
-	#[ ! -d "test" ] || XDEBUG_MODE=coverage $(PHPUNIT) --configuration phpunit.xml $(options) | tee build/phpunit
-	$(PHPUNIT)
+	[ ! -d "tests" ] || XDEBUG_MODE=coverage $(PHPUNIT) --configuration phpunit.xml $(options) | tee build/phpunit
 
 cs: phpcs
 
@@ -101,5 +100,8 @@ test: lint phpunit
 coverage:
 	XDEBUG_MODE=coverage $(PHPUNIT) --coverage-html build/coverage/
 
+
+testing:
+	XDEBUG_MODE=coverage $(PHPUNIT) --filter YatzyControllerTest --coverage-html build/coverage/
 
 metric: phploc

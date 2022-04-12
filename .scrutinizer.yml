@@ -37,7 +37,7 @@ build:
         
         override:
             -
-                command: "make phpunit"
+                command: vendor/bin/phpunit --coverage-clover=laravel-coverage
                 coverage:
-                    file: "build/coverage.clover"
-                    format: "php-clover"
+                    file: laravel-coverage
+                    format: clover

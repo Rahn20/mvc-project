@@ -92,11 +92,9 @@ lint: cs phpcpd phpmd phpstan
 
 test: lint phpunit
 	composer validate
-	XDEBUG_MODE=coverage $(PHPUNIT) --coverage-html build/coverage/
 
 coverage:
 	XDEBUG_MODE=coverage $(PHPUNIT) --coverage-html build/coverage/
-
 
 testing:
 	XDEBUG_MODE=coverage $(PHPUNIT) --filter YatzyControllerTest --coverage-html build/coverage/

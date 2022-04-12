@@ -40,7 +40,7 @@ class YatzyController extends Controller
     {
         $request->session()->push('yatzy.keepDice', $value);
 
-        $values = $request->session()->get('yatzy.values');
+        $values = $request->session()->get('yatzy.values') ?? [];
 
         if ($value) {
             $getIndex = array_search($value, $values);

@@ -20,12 +20,12 @@ class YatzyProtocolController extends Controller
     public function savePartOne(Request $request, int $key, int $value)
     {
         $request->session()->put("yatzy.dice_$key", $value);
-        $request->session()->push('yatzy.saveDice', $value) ?? [];
+        $request->session()->push('yatzy.saveDice', $value);
 
         $this->reset($request);
 
         // first part
-        if (count($request->session()->get('yatzy.saveDice')) == 6) {
+        if (count($request->session()->get('yatzy.saveDice') ?? []) == 6) {
             // the sum of the dice values
             $sum = array_sum($request->session()->get("yatzy.saveDice") ?? []);
             $request->session()->put("yatzy.sum", $sum);

@@ -140,7 +140,7 @@ class GameControllerTest extends TestCase
     public function testEndGamePart2(): void
     {
         $response = $this->withSession([
-            "play.player" => 19,
+            "play.player" => 20,
         ])->post('/game', ['select' => '', 'submit' => 'Stanna']);
 
         $response->assertStatus(302)
@@ -157,7 +157,7 @@ class GameControllerTest extends TestCase
     public function testEndGamePart3(): void
     {
         $response = $this->withSession([
-            "play.player" => 18,
+            "play.player" => 20,
         ])->post('/game', ['select' => '', 'submit' => 'Stanna']);
 
         $response->assertStatus(302)
@@ -191,7 +191,7 @@ class GameControllerTest extends TestCase
     public function testEndGamePart5(): void
     {
         $response = $this->withSession([
-            "play.player" => 21,
+            "play.player" => 18,
         ])->post('/game', ['select' => '', 'submit' => 'Stanna']);
 
         $response->assertStatus(302)

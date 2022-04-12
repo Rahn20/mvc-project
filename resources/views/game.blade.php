@@ -14,6 +14,8 @@
     <form class = "game" method="POST" action="{{ route('play-game') }}">
         @csrf
 
+        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+
         <select name='select'>
             <option name="1" value="1"> 1
             <option name="2" value="2"> 2

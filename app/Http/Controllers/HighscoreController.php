@@ -15,6 +15,10 @@ class HighscoreController extends Controller
     private $yatzyList = [];
 
 
+    /**
+     *
+     * @return array with highscores info
+     */
     public function getAllScores(): array
     {
         $counter = 0;
@@ -37,6 +41,11 @@ class HighscoreController extends Controller
         return $this->highScoreList;
     }
 
+    /**
+     *
+     * @param int $id the id of the row data to be deleted
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function deleteHighScoreById(int $id)
     {
         Highscore::where('id', $id)->delete();
@@ -44,6 +53,10 @@ class HighscoreController extends Controller
     }
 
 
+    /**
+     *
+     * @return array with data
+     */
     public function yatzyGetAllScores(): array
     {
         $counter = 0;
@@ -65,6 +78,11 @@ class HighscoreController extends Controller
         return $this->yatzyList;
     }
 
+    /**
+     *
+     * @param int $id the id of the row data to be deleted
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function deleteYatzyHighScore(int $id)
     {
         YatzyHighscore::where('id', $id)->delete();

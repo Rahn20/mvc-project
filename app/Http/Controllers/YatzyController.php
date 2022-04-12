@@ -12,6 +12,10 @@ class YatzyController extends Controller
 {
     private object $session;
 
+    /**
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function play(Request $request)
     {
         $this->session = $request->session();
@@ -27,16 +31,24 @@ class YatzyController extends Controller
         return redirect()->route('yatzy');
     }
 
+    /**
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int $value the dice value
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function keep(Request $request, int $value)
     {
         $request->session()->push('yatzy.keepDice', $value);
 
         $values = $request->session()->get('yatzy.values');
-        $getIndex = array_search($value, $values);
-        unset($values[$getIndex]);
 
-        $index = array_values($values);
-        $request->session()->put('yatzy.values', $index);
+        if ($value) {
+            $getIndex = array_search($value, $values);
+            unset($values[$getIndex]);
+
+            $index = array_values($values);
+            $request->session()->put('yatzy.values', $index);
+        }
 
         return redirect()->route('yatzy');
     }
@@ -119,7 +131,10 @@ class YatzyController extends Controller
         $this->session->put('yatzy.part2_9', $yatzy);
     }
 
-
+    /**
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroyYatzy(Request $request)
     {
         $request->session()->forget('yatzy');

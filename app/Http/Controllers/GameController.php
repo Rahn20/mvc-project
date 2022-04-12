@@ -19,18 +19,17 @@ class GameController extends Controller
     /**
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function play(Request $request)
     {
         $submit = $request->input('submit');
         $this->select = (int) $request->input('select');
-
         $this->session = $request->session();
 
         $this->setSessions();
         $result = $this->session->get('play.result');
-        $rounds =  $this->session->get('play.rounds');
+        $rounds = $this->session->get('play.rounds');
 
         if ($submit == 'Stanna' && $result == null) {
             $this->stop();
@@ -42,15 +41,24 @@ class GameController extends Controller
             $this->newRound();
         }
 
-        if ($this->session->get('play.player') == 21) {
-            $this->result("Grattis!! Du vann");
-            $this->insertNewScore('Spelare', 21);
-        } elseif ($this->session->get('play.player') > 21) {
-            $this->result("Du förlorade");
-        }
-
+        $this->winner();
         return redirect()->route('game');
     }
+
+    private function winner(): void
+    {
+        $result = $this->session->get('play.result');
+
+        if (is_null($result)) {
+            if ($this->session->get('play.player') == 21) {
+                $this->result("Grattis!! Du vann");
+                $this->insertNewScore('Spelare', 21);
+            } elseif ($this->session->get('play.player') > 21) {
+                $this->result("Du förlorade");
+            }
+        }
+    }
+
 
     private function result($res = null): void
     {
@@ -86,7 +94,7 @@ class GameController extends Controller
         $this->session->forget('play.graphic');
         $roll = [];
 
-        while ($computer < 21) {
+        while ($computer < 21 || $computer < 19) {
             $dice = new Dice();
             $dice->roll();
             $lastRoll = $dice->getLastRoll();
@@ -112,9 +120,6 @@ class GameController extends Controller
         if ($computer == 21) {
             $this->session->put('play.result', "Dator vinner");
             $this->insertNewScore('Dator', $computer);
-        } elseif ($computer > 21) {
-            $this->session->put('play.result', "Du vinner");
-            $this->insertNewScore('Spelare', $player);
         } elseif ($player < $computer && $computer < 21) {
             $this->session->put('play.result', "Dator vinner");
             $this->insertNewScore('Dator', $computer);
@@ -124,6 +129,9 @@ class GameController extends Controller
         } elseif ($player == $computer) {
             $this->session->put('play.result', "Dator vinner");
             $this->insertNewScore('Dator', $computer);
+        } elseif ($computer > 21) {
+            $this->session->put('play.result', "Du vinner");
+            $this->insertNewScore('Spelare', $player);
         }
     }
 
@@ -173,6 +181,11 @@ class GameController extends Controller
         $this->session->put('play.computer', 0);
     }
 
+    /**
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroyGame(Request $request)
     {
         $request->session()->flush();

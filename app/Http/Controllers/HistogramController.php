@@ -15,7 +15,11 @@ class HistogramController extends Controller
     private $playerScore = [];
     private $computerScore = [];
 
-    public function index(Request $request)
+    /**
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
     {
         $counter = 0;
 

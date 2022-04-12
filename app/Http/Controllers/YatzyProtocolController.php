@@ -11,19 +11,23 @@ use App\Models\YatzyHighscore;
 class YatzyProtocolController extends Controller
 {
     /**
-     * save part 1
+     * Save part 1
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int $key
+     * @param  int $value
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function savePartOne(Request $request, int $key, int $value)
     {
         $request->session()->put("yatzy.dice_$key", $value);
-        $request->session()->push('yatzy.saveDice', $value);
+        $request->session()->push('yatzy.saveDice', $value) ?? [];
 
         $this->reset($request);
 
         // first part
         if (count($request->session()->get('yatzy.saveDice')) == 6) {
             // the sum of the dice values
-            $sum = array_sum($request->session()->get("yatzy.saveDice"));
+            $sum = array_sum($request->session()->get("yatzy.saveDice") ?? []);
             $request->session()->put("yatzy.sum", $sum);
 
             if ($sum >= 63) {
@@ -53,7 +57,11 @@ class YatzyProtocolController extends Controller
     }
 
     /**
-     * save part 2
+     * Save part 2
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int $key
+     * @param  int $value
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function savePartTwo(Request $request, int $key, int $value)
     {
@@ -65,8 +73,8 @@ class YatzyProtocolController extends Controller
         // add value to session
         $this->pushToSessions($key, $request, $value);
 
-        $part1Result = $request->session()->get('yatzy.saveDice') ?? 0;
-        $part2Result = $request->session()->get('yatzy.saveDicePart2');
+        $part1Result = $request->session()->get('yatzy.saveDice') ?? [];
+        $part2Result = $request->session()->get('yatzy.saveDicePart2') ?? [];
 
         if (count($part2Result) == 9 && count($part1Result) == 6) {
             $getPart1Sum = $request->session()->get('yatzy.sum');

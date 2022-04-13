@@ -56,13 +56,13 @@ class HistogramController extends Controller
         $countScore6 = count(array_keys($scoreList, 4)) + count(array_keys($scoreList, 5)) + count(array_keys($scoreList, 6));
         $countScore7 = count(array_keys($scoreList, 1)) + count(array_keys($scoreList, 2)) + count(array_keys($scoreList, 3));
 
-        $getPx1 = round(($countScore1 / $games) * 100) * 3; // * 3 to get the pixels, ex: 60px = 20%
-        $getPx2 = round(($countScore2 / $games) * 100) * 3;
-        $getPx3 = round(($countScore3 / $games) * 100) * 3;
-        $getPx4 = round(($countScore4 / $games) * 100) * 3;
-        $getPx5 = round(($countScore5 / $games) * 100) * 3;
-        $getPx6 = round(($countScore6 / $games) * 100) * 3;
-        $getPx7 = round(($countScore7 / $games) * 100) * 3;
+        $getPx1 = ($countScore1 / $games) * 100 * 3; // * 3 to get the pixels, ex: 60px = 20%
+        $getPx2 = ($countScore2 / $games) * 100 * 3;
+        $getPx3 = ($countScore3 / $games) * 100 * 3;
+        $getPx4 = ($countScore4 / $games) * 100 * 3;
+        $getPx5 = ($countScore5 / $games) * 100 * 3;
+        $getPx6 = ($countScore6 / $games) * 100 * 3;
+        $getPx7 = ($countScore7 / $games) * 100 * 3;
 
         $result = [$getPx1, $getPx2, $getPx3, $getPx4, $getPx5, $getPx6, $getPx7];
 
@@ -74,13 +74,13 @@ class HistogramController extends Controller
         $scores = $this->getYatzyScores();
 
         if ($scores[1] > 0) {
-            $getPx1 = round(($scores[0][0] / $scores[1]) * 100) * 3; // (* 3) to get the pixels, ex: 60px = 20%
-            $getPx2 = round(($scores[0][1] / $scores[1]) * 100) * 3;
-            $getPx3 = round(($scores[0][2] / $scores[1]) * 100) * 3;
-            $getPx4 = round(($scores[0][3] / $scores[1]) * 100) * 3;
-            $getPx5 = round(($scores[0][4] / $scores[1]) * 100) * 3;
-            $getPx6 = round(($scores[0][5] / $scores[1]) * 100) * 3;
-            $getPx7 = round(($scores[0][6] / $scores[1]) * 100) * 3;
+            $getPx1 = ($scores[0][0] / $scores[1]) * 100 * 3; // (* 3) to get the pixels, ex: 60px = 20%
+            $getPx2 = ($scores[0][1] / $scores[1]) * 100 * 3;
+            $getPx3 = ($scores[0][2] / $scores[1]) * 100 * 3;
+            $getPx4 = ($scores[0][3] / $scores[1]) * 100 * 3;
+            $getPx5 = ($scores[0][4] / $scores[1]) * 100 * 3;
+            $getPx6 = ($scores[0][5] / $scores[1]) * 100 * 3;
+            $getPx7 = ($scores[0][6] / $scores[1]) * 100 * 3;
         }
 
         $result = [$getPx1 ?? 0, $getPx2 ?? 0, $getPx3 ?? 0, $getPx4 ?? 0, $getPx5 ?? 0, $getPx6 ?? 0, $getPx7 ?? 0];

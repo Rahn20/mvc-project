@@ -198,4 +198,20 @@ class GameControllerTest extends TestCase
                 ->assertRedirect('/game')
                 ->assertSessionHas('play.result');
     }
+
+    /**
+     * Test game21 page, test stop-button, get the winner
+     *
+     * @return void
+     */
+    public function testEndGamePart6(): void
+    {
+        $response = $this->withSession([
+            "play.player" => 19,
+        ])->post('/game', ['select' => '1', 'submit' => 'Stanna']);
+
+        $response->assertStatus(302)
+                ->assertRedirect('/game')
+                ->assertSessionHas('play.result');
+    }
 }
